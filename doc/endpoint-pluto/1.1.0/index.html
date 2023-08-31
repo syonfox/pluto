@@ -1,0 +1,253 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>JSDoc: Home</title>
+
+    <script src="scripts/prettify/prettify.js"> </script>
+    <script src="scripts/prettify/lang-css.js"> </script>
+    <!--[if lt IE 9]>
+      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <link type="text/css" rel="stylesheet" href="styles/prettify-tomorrow.css">
+    <link type="text/css" rel="stylesheet" href="styles/jsdoc-default.css">
+</head>
+
+<body>
+
+<div id="main">
+
+    <h1 class="page-title">Home</h1>
+
+    
+
+
+
+    
+
+
+    <h3>endpoint-pluto 1.1.0</h3>
+
+
+
+
+
+
+
+
+
+
+    
+
+
+
+
+    <section>
+        <article><h1>Pluto.js</h1>
+<p><em>&quot;JavaScript dependency injection that's so small, it almost doesn't count.&quot;</em></p>
+<table>
+<thead>
+<tr>
+<th>Branch</th>
+<th style="text-align:left">Status</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Master</td>
+<td style="text-align:left"><a href="https://travis-ci.org/ecowden/pluto.js"><img src="https://travis-ci.org/ecowden/pluto.js.png?branch=master" alt="Build Status"></a> <a href="https://coveralls.io/github/ecowden/pluto.js?branch=master"><img src="https://coveralls.io/repos/github/ecowden/pluto.js/badge.svg?branch=master" alt="Coverage Status"></a> <a href="https://nodesecurity.io/orgs/ecowden/projects/ef2a53ca-7e86-47ac-8ed2-9faa50163fa0"><img src="https://nodesecurity.io/orgs/ecowden/projects/ef2a53ca-7e86-47ac-8ed2-9faa50163fa0/badge" alt="NSP Status"></a></td>
+</tr>
+<tr>
+<td>All</td>
+<td style="text-align:left"><a href="https://travis-ci.org/ecowden/pluto.js"><img src="https://travis-ci.org/ecowden/pluto.js.png" alt="Build Status"></a></td>
+</tr>
+</tbody>
+</table>
+<h2>What is Pluto?</h2>
+<p>Pluto is a JavaScript dependency injection tool.</p>
+<p>Dependency injection is a spiffy way to assemble your applications. It decouples the various bits and makes your app
+testable. An introduction to dependency injection principles is currently beyond the scope of this guide.</p>
+<h2>Installing Pluto</h2>
+<p>Pluto is designed to be used with <a href="http://nodejs.org/">Node</a> and <a href="http://npmjs.org/">NPM</a>. From the root of a Node
+project, execute:</p>
+<pre class="prettyprint source"><code>$ npm install pluto --save
+</code></pre>
+<h2>How to Pluto?</h2>
+<p>A binder is the basic unit of Pluto's dependency injection. It maps names to objects you want.</p>
+<p>Pluto's injection is done in a few steps:</p>
+<ol>
+<li>Create bindings. When you do this, you bind names to any combination of objects, factory functions and constructor
+functions.</li>
+<li>Optionally, call <code>.get(...)</code>. Pluto will give you the thing mapped to that name. Along the way, it will inject
+parameters that match other names bound in the binder and resolve Promises as appropriate.</li>
+<li>Alternately, call <code>.bootstrap()</code> to run all your factory functions and constructors, and resolve all promises. This
+is handy if you're trying to start up an application with a bunch of moving parts, and more common than
+using <code>.get(...)</code> for each part individually.</li>
+</ol>
+<p>There are three things you can bind to a name: an object instance, a constructor function and a factory function.</p>
+<h3>Promises</h3>
+<p>If you pass Pluto a promise, it will resolve it. If your factory or constructor function returns a promise, Pluto will
+resolve it before injecting the result into other components.</p>
+<h3>Instance Binding</h3>
+<p>The simplest binding is to bind a name to an instance:</p>
+<pre class="prettyprint source lang-js"><code>const anInstance = {} // can be any JavaScript object, or a Promise
+const bind = pluto()
+bind('myInstance').toInstance(anInstance)
+
+// bind.get(...) gives us a Promise that resolves to our instance
+bind.get('myInstance').then((myInstance) => {
+  t.is(myInstance, anInstance)
+})
+</code></pre>
+<h3>Constructor Binding</h3>
+<p>You can also bind to a constructor function (i.e., a function that is meant to be used with the <code>new</code> keyword to create
+a new object). When you call <code>.get(...)</code>, Pluto will invoke the Constructor using <code>new</code> and return the result. If the
+constructor has any parameters, Pluto will consult its bindings and pass them into the constructor:</p>
+<pre class="prettyprint source lang-js"><code>function Greeter(greeting, name) {
+  this.greeting = greeting
+  this.name = name
+}
+
+Greeter.prototype.greet = function () {
+  return `${this.greeting}, ${this.name}!`
+}
+
+const bind = pluto()
+bind('greeting').toInstance('Hello')
+bind('name').toInstance(Promise.resolve('World')) // A promise will work, too
+bind('greeter').toConstructor(Greeter)
+
+bind.get('greeter').then((myGreeter) => {
+  t.is(myGreeter.greet(), 'Hello, World!')
+})
+</code></pre>
+<h3>Factory Function Binding</h3>
+<p>Similarly, you can bind to a factory function -- that is, a function that creates some other object. When you
+call <code>.get(...)</code>, Pluto will invoke the function and return the result. Just like with a constructor, if the factory
+function has any parameters, Pluto will consult its bindings and pass them into the factory:</p>
+<pre class="prettyprint source lang-js"><code>function greeterFactory(greeting, name) {
+  return function greet() {
+    return `${greeting}, ${name}!`
+  }
+}
+
+const bind = pluto()
+bind('greeting').toInstance('Hello')
+bind('name').toInstance(Promise.resolve('World')) // A promise will work, too
+bind('greet').toFactory(greeterFactory)
+
+bind.get('greet').then((greet) => {
+  t.is(greet(), 'Hello, World!')
+})
+</code></pre>
+<p><strong>Author's note</strong>: <em>Factory functions a super useful. I find that I use them more than any other type of binding.</em></p>
+<h3>Eager Bootstrapping</h3>
+<p>By default, Pluto will only create your objects lazily. That is, factory and constructor functions will only get called
+when you ask for them with <code>.get(...)</code>.</p>
+<p>You may instead want them to be eagerly invoked to bootstrap your project. For instance, you may have factory functions
+which set up Express routes or which perform other application setup.</p>
+<p>Invoke <code>.bootstrap()</code> after creating your bindings to eagerly bootstrap your application. The result is a promise which
+resolves to a <code>Map</code> holding all bindings by name, fully resolved and injected.</p>
+<pre class="prettyprint source lang-js"><code>function greeterFactory(greeting, name) {
+  return function greet() {
+    return `${greeting}, ${name}!`
+  }
+}
+
+const bind = pluto()
+bind('greeting').toInstance('Hello')
+bind('name').toInstance(Promise.resolve('World')) // A promise will work, too
+bind('greet').toFactory(greeterFactory)
+
+bind.bootstrap().then(app => {
+  const greet = app.get('greet') // Note: it's synchronous. Everything is ready.
+  t.is(greet(), 'Hello, World!')
+})
+</code></pre>
+<h3>Injected Objects are Singletons</h3>
+<p>Note that a factory function or constructor function is only called once. Each call to <code>get(...)</code> will return the same
+instance.</p>
+<p>Remember that singletons are only singletons within a single binder, though. Different binders -- for instance, created
+for separate test methods -- will each have their own singleton instance.</p>
+<h2>Self injection</h2>
+<p>There are times when you might not know exactly what you'll need until later in runtime, and when you might want to
+manage injection dynamically. Pluto can inject itself to give you extra control.</p>
+<p>There are two ways to inject Pluto. Use <code>plutoBinder</code> if you want the raw binder. Use <code>plutoApp</code> when you want the fully
+bootstapped, synchronous app.</p>
+<h3>plutoBinder</h3>
+<p>The most direct -- and safe! -- way to self-inject Pluto is to ask for <code>plutoBinder</code>. This will inject the same <code>bind</code>
+function that you received when invoking <code>pluto()</code>.</p>
+<pre class="prettyprint source lang-js"><code>function fakeFactory(plutoBinder) {
+  return plutoBinder.get('data') // will return a promise
+}
+
+const bind = pluto() // `bind` is the same object as `plutoBinder`, above
+bind('data').toInstance('test-data')
+bind('factory').toFactory(fakeFactory)
+
+const actual = yield bind.get('factory')
+t.is(actual, 'test-data')
+</code></pre>
+<p>Note that the <code>get(...)</code> and <code>getAll(...)</code> functions are asynchronous and return a <code>Promise</code>!</p>
+<h3>plutoApp</h3>
+<p>When using Pluto's bootstrapping capability, you can self-inject the fully bootstrapped application under the
+name <code>plutoApp</code>:</p>
+<pre class="prettyprint source lang-js"><code>class Greeter {
+  constructor(plutoApp) {
+    // Note: the plutoApp Map may not be fully populated yet, since we could
+    // be at any indeterminate part of the bootstrapping process.
+    // Save it for later, but don't go using it yet.
+    this._plutoApp = plutoApp
+  }
+
+  greet() {
+    // By now, the app is fully bootstrapped and the plutoApp Map is safe
+    // to use.
+    const greeting = this._plutoApp.get('greeting')
+    return `${greeting}, World!`
+  }
+}
+
+const bind = pluto()
+bind('greeting').toInstance('Bonjour')
+bind('greeter').toConstructor(Greeter)
+
+const app = yield bind.bootstrap()
+
+const greeter = app.get('greeter')
+const actual = greeter.greet()
+t.is(actual, 'Bonjour, World!')
+</code></pre>
+<p><strong>Warning!!!</strong>*</p>
+<p>Under normal usage, this is pretty safe. There are a few corner cases to watch out for, however!</p>
+<ol>
+<li><strong>You <em>must</em> call <code>.bootstrap()</code>!</strong> If not, or if you try to get an instance before bootstrapping, the <code>plutoApp</code>
+variable will not be defined.</li>
+<li><strong>Save it for later.</strong> The sequence in which components are instantiated during the bootstrapping process is
+indeterminate. While the <code>plutoApp</code> variable is guaranteed to exist, it may not be fully populated until
+bootstrapping is completed. It will be safe to use during &quot;normal&quot; operation, however. <em>Note: It would be easy to add
+a Promise that resolves when bootstrapping is complete. If you need this feature, ask for it!</em></li>
+</ol></article>
+    </section>
+
+
+
+
+
+
+</div>
+
+<nav>
+    <h2><a href="index.html">Home</a></h2><h3>Global</h3><ul><li><a href="global.html#pluto">pluto</a></li><li><a href="global.html#toConstructor">toConstructor</a></li><li><a href="global.html#toFactory">toFactory</a></li><li><a href="global.html#toInstance">toInstance</a></li></ul>
+</nav>
+
+<br class="clear">
+
+<footer>
+    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 4.0.2</a> on Thu Aug 31 2023 11:12:18 GMT-0600 (Mountain Daylight Saving Time)
+</footer>
+
+<script> prettyPrint(); </script>
+<script src="scripts/linenumber.js"> </script>
+</body>
+</html>
