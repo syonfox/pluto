@@ -2,19 +2,21 @@
   "name": "endpoint-pluto",
   "version": "1.1.0",
   "description": "Dependency injection that's so small, it almost doesn't count.",
-  "homepage": "https://github.com/ecowden/pluto.js",
+  "homepage": "getpluto.win",
   "keywords": [
     "dependency",
     "injection",
     "di",
     "dependency injection",
-    "testing"
+    "testing",
+    "endpoint",
+    "pluto"
   ],
-  "author": "Evan Cowden <evan38109@gmail.com>",
+  "author": "Syonfox, Inspired by Evan Cowden <evan38109@gmail.com>",
   "license": "MIT",
   "repository": {
     "type": "git",
-    "url": "git://github.com/ecowden/pluto.js.git"
+    "url": "git://github.com/syonfox/pluto.js.git"
   },
   "main": "lib/pluto.js",
   "engines": {
@@ -27,7 +29,10 @@
   "devDependencies": {
   },
   "scripts": {
-    "example": "node lib/examplesSpec.js"
+    "example": "node lib/examplesSpec.js",
+    "build": "echo this is runable src",
+    "pub": "bash publish.sh",
+    "doc": "npx jsdoc -R README.md -P package.json -d doc -r lib/"
   },
   "ava": {
     "timeout": "1m",

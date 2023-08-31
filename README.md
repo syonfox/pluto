@@ -2,16 +2,17 @@
 
 _"JavaScript dependency injection that's so small, it almost doesn't count."_
 
-| Branch        | Status        |
-| ------------- |:------------- |
-| Master        | [![Build Status](https://travis-ci.org/ecowden/pluto.js.png?branch=master)](https://travis-ci.org/ecowden/pluto.js) [![Coverage Status](https://coveralls.io/repos/github/ecowden/pluto.js/badge.svg?branch=master)](https://coveralls.io/github/ecowden/pluto.js?branch=master) [![NSP Status](https://nodesecurity.io/orgs/ecowden/projects/ef2a53ca-7e86-47ac-8ed2-9faa50163fa0/badge)](https://nodesecurity.io/orgs/ecowden/projects/ef2a53ca-7e86-47ac-8ed2-9faa50163fa0) |
-| All           | [![Build Status](https://travis-ci.org/ecowden/pluto.js.png)](https://travis-ci.org/ecowden/pluto.js) |
+| Branch | Status                                                                                                                                                                                                                                                                                                                                                                                                                                                                         |
+|--------|:-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| Master | [![Build Status](https://travis-ci.org/ecowden/pluto.js.png?branch=master)](https://travis-ci.org/ecowden/pluto.js) [![Coverage Status](https://coveralls.io/repos/github/ecowden/pluto.js/badge.svg?branch=master)](https://coveralls.io/github/ecowden/pluto.js?branch=master) [![NSP Status](https://nodesecurity.io/orgs/ecowden/projects/ef2a53ca-7e86-47ac-8ed2-9faa50163fa0/badge)](https://nodesecurity.io/orgs/ecowden/projects/ef2a53ca-7e86-47ac-8ed2-9faa50163fa0) |
+| All    | [![Build Status](https://travis-ci.org/ecowden/pluto.js.png)](https://travis-ci.org/ecowden/pluto.js)                                                                                                                                                                                                                                                                                                                                                                          |
 
 ## What is Pluto?
 
 Pluto is a JavaScript dependency injection tool.
 
-Dependency injection is a spiffy way to assemble your applications. It decouples the various bits and makes your app testable. An introduction to dependency injection principles is currently beyond the scope of this guide.
+Dependency injection is a spiffy way to assemble your applications. It decouples the various bits and makes your app
+testable. An introduction to dependency injection principles is currently beyond the scope of this guide.
 
 ## Installing Pluto
 
@@ -28,15 +29,20 @@ A binder is the basic unit of Pluto's dependency injection. It maps names to obj
 
 Pluto's injection is done in a few steps:
 
-1. Create bindings. When you do this, you bind names to any combination of objects, factory functions and constructor functions.
-2. Optionally, call `.get(...)`. Pluto will give you the thing mapped to that name. Along the way, it will inject parameters that match other names bound in the binder and resolve Promises as appropriate.
-3. Alternately, call `.bootstrap()` to run all your factory functions and constructors, and resolve all promises. This is handy if you're trying to start up an application with a bunch of moving parts, and more common than using `.get(...)` for each part individually.
+1. Create bindings. When you do this, you bind names to any combination of objects, factory functions and constructor
+   functions.
+2. Optionally, call `.get(...)`. Pluto will give you the thing mapped to that name. Along the way, it will inject
+   parameters that match other names bound in the binder and resolve Promises as appropriate.
+3. Alternately, call `.bootstrap()` to run all your factory functions and constructors, and resolve all promises. This
+   is handy if you're trying to start up an application with a bunch of moving parts, and more common than
+   using `.get(...)` for each part individually.
 
 There are three things you can bind to a name: an object instance, a constructor function and a factory function.
 
 ### Promises
 
-If you pass Pluto a promise, it will resolve it. If your factory or constructor function returns a promise, Pluto will resolve it before injecting the result into other components.
+If you pass Pluto a promise, it will resolve it. If your factory or constructor function returns a promise, Pluto will
+resolve it before injecting the result into other components.
 
 ### Instance Binding
 
@@ -55,7 +61,9 @@ bind.get('myInstance').then((myInstance) => {
 
 ### Constructor Binding
 
-You can also bind to a constructor function (i.e., a function that is meant to be used with the `new` keyword to create a new object). When you call `.get(...)`, Pluto will invoke the Constructor using `new` and return the result. If the constructor has any parameters, Pluto will consult its bindings and pass them into the constructor:
+You can also bind to a constructor function (i.e., a function that is meant to be used with the `new` keyword to create
+a new object). When you call `.get(...)`, Pluto will invoke the Constructor using `new` and return the result. If the
+constructor has any parameters, Pluto will consult its bindings and pass them into the constructor:
 
 ```js
 function Greeter(greeting, name) {
@@ -79,7 +87,9 @@ bind.get('greeter').then((myGreeter) => {
 
 ### Factory Function Binding
 
-Similarly, you can bind to a factory function -- that is, a function that creates some other object. When you call `.get(...)`, Pluto will invoke the function and return the result. Just like with a constructor, if the factory function has any parameters, Pluto will consult its bindings and pass them into the factory:
+Similarly, you can bind to a factory function -- that is, a function that creates some other object. When you
+call `.get(...)`, Pluto will invoke the function and return the result. Just like with a constructor, if the factory
+function has any parameters, Pluto will consult its bindings and pass them into the factory:
 
 ```js
 function greeterFactory(greeting, name) {
@@ -102,11 +112,14 @@ bind.get('greet').then((greet) => {
 
 ### Eager Bootstrapping
 
-By default, Pluto will only create your objects lazily. That is, factory and constructor functions will only get called when you ask for them with `.get(...)`.
+By default, Pluto will only create your objects lazily. That is, factory and constructor functions will only get called
+when you ask for them with `.get(...)`.
 
-You may instead want them to be eagerly invoked to bootstrap your project. For instance, you may have factory functions which set up Express routes or which perform other application setup.
+You may instead want them to be eagerly invoked to bootstrap your project. For instance, you may have factory functions
+which set up Express routes or which perform other application setup.
 
-Invoke `.bootstrap()` after creating your bindings to eagerly bootstrap your application. The result is a promise which resolves to a `Map` holding all bindings by name, fully resolved and injected.
+Invoke `.bootstrap()` after creating your bindings to eagerly bootstrap your application. The result is a promise which
+resolves to a `Map` holding all bindings by name, fully resolved and injected.
 
 ```js
 function greeterFactory(greeting, name) {
@@ -128,19 +141,24 @@ bind.bootstrap().then(app => {
 
 ### Injected Objects are Singletons
 
-Note that a factory function or constructor function is only called once. Each call to `get(...)` will return the same instance.
+Note that a factory function or constructor function is only called once. Each call to `get(...)` will return the same
+instance.
 
-Remember that singletons are only singletons within a single binder, though. Different binders -- for instance, created for separate test methods -- will each have their own singleton instance.
+Remember that singletons are only singletons within a single binder, though. Different binders -- for instance, created
+for separate test methods -- will each have their own singleton instance.
 
 ## Self injection
 
-There are times when you might not know exactly what you'll need until later in runtime, and when you might want to manage injection dynamically. Pluto can inject itself to give you extra control.
+There are times when you might not know exactly what you'll need until later in runtime, and when you might want to
+manage injection dynamically. Pluto can inject itself to give you extra control.
 
-There are two ways to inject Pluto. Use `plutoBinder` if you want the raw binder. Use `plutoApp` when you want the fully bootstapped, synchronous app.
+There are two ways to inject Pluto. Use `plutoBinder` if you want the raw binder. Use `plutoApp` when you want the fully
+bootstapped, synchronous app.
 
 ### plutoBinder
 
-The most direct -- and safe! -- way to self-inject Pluto is to ask for `plutoBinder`. This will inject the same `bind` function that you received when invoking `pluto()`.
+The most direct -- and safe! -- way to self-inject Pluto is to ask for `plutoBinder`. This will inject the same `bind`
+function that you received when invoking `pluto()`.
 
 ```js
 function fakeFactory(plutoBinder) {
@@ -159,7 +177,8 @@ Note that the `get(...)` and `getAll(...)` functions are asynchronous and return
 
 ### plutoApp
 
-When using Pluto's bootstrapping capability, you can self-inject the fully bootstrapped application under the name `plutoApp`:
+When using Pluto's bootstrapping capability, you can self-inject the fully bootstrapped application under the
+name `plutoApp`:
 
 ```js
 class Greeter {
@@ -193,5 +212,9 @@ t.is(actual, 'Bonjour, World!')
 
 Under normal usage, this is pretty safe. There are a few corner cases to watch out for, however!
 
-1. **You _must_ call `.bootstrap()`!** If not, or if you try to get an instance before bootstrapping, the `plutoApp` variable will not be defined.
-1. **Save it for later.** The sequence in which components are instantiated during the bootstrapping process is indeterminate. While the `plutoApp` variable is guaranteed to exist, it may not be fully populated until bootstrapping is completed. It will be safe to use during "normal" operation, however. _Note: It would be easy to add a Promise that resolves when bootstrapping is complete. If you need this feature, ask for it!_
+1. **You _must_ call `.bootstrap()`!** If not, or if you try to get an instance before bootstrapping, the `plutoApp`
+   variable will not be defined.
+1. **Save it for later.** The sequence in which components are instantiated during the bootstrapping process is
+   indeterminate. While the `plutoApp` variable is guaranteed to exist, it may not be fully populated until
+   bootstrapping is completed. It will be safe to use during "normal" operation, however. _Note: It would be easy to add
+   a Promise that resolves when bootstrapping is complete. If you need this feature, ask for it!_
