@@ -12,11 +12,11 @@
     "endpoint",
     "pluto"
   ],
-  "author": "Syonfox, Inspired by Evan Cowden <evan38109@gmail.com>",
+  "author": "Syonfox, Inspired by Evan Cowden",
   "license": "MIT",
   "repository": {
     "type": "git",
-    "url": "git://github.com/syonfox/pluto.js.git"
+    "url": "git://github.com/syonfox/pluto.git"
   },
   "main": "lib/pluto.js",
   "engines": {

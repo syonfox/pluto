@@ -1,5 +1,9 @@
 # Pluto.js
 
+https://getpluto.win/
+https://getpluto.win/doc/endpoint-pluto/1.1.0/
+https://npmjs.com/endpoint-pluto
+
 _"JavaScript dependency injection that's so small, it almost doesn't count."_
 
 | Branch | Status                                                                                                                                                                                                                                                                                                                                                                                                                                                                         |
