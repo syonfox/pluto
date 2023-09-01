@@ -10,9 +10,9 @@
         "type": "image/png"
     }],
     "lang": "en-US",
-    "name": "PlayCanvas glTF Viewer",
+    "name": "Pluto Viewer",
     "orientation": "any",
     "prefer_related_applications": false,
-    "short_name": "glTF Viewer",
+    "short_name": "Pluto Viewer",
     "start_url": "."
 }
