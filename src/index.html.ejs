@@ -1,0 +1,367 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+
+
+
+    <link rel="apple-touch-icon" sizes="180x180" href="/img/icon/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="/img/icon/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="/img/icon/favicon-16x16.png">
+    <link rel="manifest" href="/img/icon/site.webmanifest">
+    <link rel="mask-icon" href="/img/icon/safari-pinned-tab.svg" color="#222222">
+    <link rel="shortcut icon" href="/img/icon/favicon.ico">
+    <meta name="apple-mobile-web-app-title" content="pluto">
+    <meta name="application-name" content="pluto">
+    <meta name="msapplication-TileColor" content="#222222">
+    <meta name="msapplication-config" content="/img/icon/browserconfig.xml">
+    <meta name="theme-color" content="#ffffff">
+
+
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://bsjs.sgol.pub/css/water.css">
+    <style>
+      body {
+        /* margin: 0;
+        padding: 0;
+       overflow: hidden;*/
+        background-color: black;
+        /*color: black;*/
+        /*background: url("./img/pluto_web3.svg");*/
+        /*background-size: cover;*/
+        /*background-repeat: no-repeat;*/
+      }
+
+      #intro-container {
+        position: relative;
+        height: 100vh;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        /*background: url("./img/pluto_web3.svg");*/
+
+        /*background-image: url('./img/pluto_web3.svg'); !* Background photo *!*/
+        background-size: cover;
+        background-position: center;
+        animation: fade-in 0.25s;
+      }
+
+      #intro-text {
+        text-align: center;
+        font-size: 2rem;
+        color: whitesmoke;
+
+        /*font-size: 36px;*/
+        font-weight: bold;
+        text-shadow:
+          2px 2px 2px rgba(0, 0, 0, 0.2),
+          4px 4px 4px rgba(0, 0, 0, 0.15),
+          6px 6px 6px rgba(0, 0, 0, 0.1),
+          8px 8px 8px rgba(0, 0, 0, 0.05);
+      }
+
+      .background-svg {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        z-index: -1;
+      }
+      @keyframes fade-in {
+        from {
+          opacity: 0;
+        }
+        to {
+          opacity: 1;
+        }
+      }
+
+      #pdf-container {
+        height: 100vh;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+      }
+
+
+
+      .gif-container {
+        width: 100%;
+        /* max-width: 600px;  Set a maximum width if desired */
+        overflow: hidden;
+      }
+
+      .full-width-gif {
+        width: 100%;
+        display: block;
+      }
+
+
+
+
+      .drop-shadow-container {
+        width: 300px;
+        height: 200px;
+        position: relative;
+        overflow: hidden;
+      }
+
+      .drop-shadow-content {
+        width: 100%;
+        height: 100%;
+        background-color: #f0f0f0;
+        position: absolute;
+        z-index: 1;
+      }
+
+      .drop-shadow-effect {
+        width: 100%;
+        height: 100%;
+        position: absolute;
+        z-index: 0;
+        filter: drop-shadow(0 4px 4px rgba(0, 0, 0, 0.2));
+        animation: shadow-flash 3s infinite alternate;
+      }
+
+      @keyframes shadow-flash {
+        from {
+          filter: drop-shadow(0 4px 4px rgba(0, 0, 0, 0.2));
+        }
+        to {
+          filter: drop-shadow(0 10px 20px rgba(0, 0, 0, 0.4));
+        }
+      }
+
+
+
+
+
+    </style>
+    <title>Pluto Introduction</title>
+</head>
+<body>
+<div id="intro-container" class="">
+
+    <div id="intro-text">
+        Welcome to Pluto
+    </div>
+    <%
+ console.log(JSON.stringify(Object.keys(this)))
+ console.log("Embedding a very large svg this is a good example of ejs for readability")
+ %>
+    <%- include("partials/pluto_svg.ejs") %>
+
+</div>
+<style>
+  table {
+    border-collapse: collapse;
+    width: 100%;
+    border: 1px solid #333;
+  }
+
+  th, td {
+    padding: 10px;
+    text-align: left;
+    border-bottom: 1px solid #333;
+  }
+
+  th {
+    background-color: #111;
+  }
+
+  tfoot {
+    font-style: italic;
+  }
+
+  tbody tr:nth-child(even) {
+    background-color: #1a1a1a;
+  }
+
+  tbody tr:hover {
+    background-color: #333;
+    color: #42ff42
+  }
+</style>
+<table>
+    <thead>
+    <tr>
+        <th colspan="2" scope="col">
+            Basic data for Pluto
+        </th>
+    </tr>
+    </thead>
+    <tfoot>
+    <tr>
+        <td colspan="2">
+            *Time required for Pluto to return to the same position in the sky relative to the Sun as seen from Earth.
+        </td>
+    </tr>
+    <tr>
+        <td colspan="2">
+            **Smallness of deviation from sidereal day is due to Pluto's huge orbit.
+        </td>
+    </tr>
+    </tfoot>
+    <tbody>
+    <tr>
+        <td scope="row">
+            mean distance from Sun
+        </td>
+        <td>
+            5,910,000,000 km (39.5 AU)
+        </td>
+    </tr>
+    <tr>
+        <td scope="row">
+            eccentricity of orbit
+        </td>
+        <td>
+            0.251
+        </td>
+    </tr>
+    <tr>
+        <td scope="row">
+            inclination of orbit to ecliptic
+        </td>
+        <td>
+            17.1°
+        </td>
+    </tr>
+    <tr>
+        <td scope="row">
+            Plutonian year (sidereal period of revolution)
+        </td>
+        <td>
+            247.69 Earth years
+        </td>
+    </tr>
+    <tr>
+        <td scope="row">
+            visual magnitude at mean opposition
+        </td>
+        <td>
+            15.1
+        </td>
+    </tr>
+    <tr>
+        <td scope="row">
+            mean synodic period*
+        </td>
+        <td>
+            366.74 Earth days
+        </td>
+    </tr>
+    <tr>
+        <td scope="row">
+            mean orbital velocity
+        </td>
+        <td>
+            4.72 km/s
+        </td>
+    </tr>
+    <tr>
+        <td scope="row">
+            radius
+        </td>
+        <td>
+            1,185 km
+        </td>
+    </tr>
+    <tr>
+        <td scope="row">
+            mass
+        </td>
+        <td>
+            1.2 x 10<sup>22</sup> kg
+        </td>
+    </tr>
+    <tr>
+        <td scope="row">
+            mean density
+        </td>
+        <td>
+            about 2 g/cm<sup>3</sup>
+        </td>
+    </tr>
+    <tr>
+        <td scope="row">
+            mean surface gravity
+        </td>
+        <td>
+            58 cm/s
+        </td>
+    </tr>
+    <tr>
+        <td scope="row">
+            escape velocity
+        </td>
+        <td>
+            1.1 km/s
+        </td>
+    </tr>
+    <tr>
+        <td scope="row">
+            rotation period (Plutonian sidereal day)
+        </td>
+        <td>
+            6.3873 Earth days (retrograde)
+        </td>
+    </tr>
+    <tr>
+        <td scope="row">
+            Plutonian mean solar day**
+        </td>
+        <td>
+            6.3874 Earth days
+        </td>
+    </tr>
+    <tr>
+        <td scope="row">
+            inclination of equator to orbit (obliquity)
+        </td>
+        <td>
+            120°
+        </td>
+    </tr>
+    <tr>
+        <td scope="row">
+            mean surface temperature
+        </td>
+        <td>
+            about 40 K (−387 °F, −233 °C)
+        </td>
+    </tr>
+    <tr>
+        <td scope="row">
+            surface pressure (near perihelion)
+        </td>
+        <td>
+            about 10<sup>−5</sup> bar
+        </td>
+    </tr>
+    <tr>
+        <td scope="row">
+            number of known moons
+        </td>
+        <td>
+            5
+        </td>
+    </tr>
+    </tbody>
+</table>
+<div id="my-buttons"><a href="./viewer/index.html?assetUrl=%2Fviewer%2Fstatic%2Fimg%2Fpluto.glb"> Viewer</a>
+
+    <a href="./doc/endpoint-pluto/1.1.0/index.html
+"> Docs </a></div>
+<div class="gif-container">
+    <img class="full-width-gif" src="./img/pluto_through_years_full.gif" alt="GIF">
+</div>
+
+
+<div id="pdf-container">
+    <iframe src="./4413_OceanWorlds_litho4.pdf" width="100%" height="100%" frameborder="0"></iframe>
+</div>
+</body>
+</html>

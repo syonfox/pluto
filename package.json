@@ -12,7 +12,7 @@
     "endpoint",
     "pluto"
   ],
-  "author": "Syonfox, Inspired by Evan Cowden",
+  "author": "syonfox",
   "license": "MIT",
   "repository": {
     "type": "git",
@@ -27,26 +27,14 @@
     "lodash.memoize": "^4.1.2"
   },
   "devDependencies": {
+    "endpoint-ei": "^1.2.2"
   },
   "scripts": {
     "example": "node lib/examplesSpec.js",
     "build": "echo this is runable src",
+    "ei": "npx ei src . package.json",
     "pub": "bash publish.sh",
     "doc": "npx jsdoc -R README.md -P package.json -d doc -r lib/"
   },
-  "ava": {
-    "timeout": "1m",
-    "files": [
-      "lib/**/*Spec.js",
-      "*Spec.js"
-    ],
-    "source": [
-      "**/*.{js,jsx}"
-    ],
-    "babel": {
-      "presets": [
-        "es2015-node6"
-      ]
-    }
-  }
+  "contributors": ["Syonfox", "Evan Cowden"]
 }

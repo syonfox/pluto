@@ -1,11 +1,43 @@
 # Pluto.js
 
+A fun site for hosting pluto and other planet related stuff.
 https://getpluto.win/
+
+Get the new docs for pluto api here
 https://getpluto.win/doc/endpoint-pluto/1.1.0/
+
+and install the package from npm 
 https://npmjs.com/endpoint-pluto
 
 _"JavaScript dependency injection that's so small, it almost doesn't count."_
 
+_"Powerful Locator for Unifying Transparent Objects"_
+
+### The main code is lib is in `/lib/pluto.js`
+
+
+The rest of this is getpluto.win hosted statically on pages
+
+```shell
+# DEV QUICKSTART
+git clone https://github.com/syonfox/pluto.git
+cd pluto 
+npm install
+npm run ei
+```
+```shell
+# USER QUICKSTART
+npm install endpoint-pluto
+const pluto = require("pluto");
+const binder = pluto();
+binder.bind("myVar").toInstance();//... read docs for how to bind 
+const app = await bind.bootstrap() 
+
+
+
+# or include however you want should be umd
+
+```
 | Branch | Status                                                                                                                                                                                                                                                                                                                                                                                                                                                                         |
 |--------|:-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
 | Master | [![Build Status](https://travis-ci.org/ecowden/pluto.js.png?branch=master)](https://travis-ci.org/ecowden/pluto.js) [![Coverage Status](https://coveralls.io/repos/github/ecowden/pluto.js/badge.svg?branch=master)](https://coveralls.io/github/ecowden/pluto.js?branch=master) [![NSP Status](https://nodesecurity.io/orgs/ecowden/projects/ef2a53ca-7e86-47ac-8ed2-9faa50163fa0/badge)](https://nodesecurity.io/orgs/ecowden/projects/ef2a53ca-7e86-47ac-8ed2-9faa50163fa0) |
@@ -157,7 +189,7 @@ There are times when you might not know exactly what you'll need until later in 
 manage injection dynamically. Pluto can inject itself to give you extra control.
 
 There are two ways to inject Pluto. Use `plutoBinder` if you want the raw binder. Use `plutoApp` when you want the fully
-bootstapped, synchronous app.
+bootstrapped, synchronous app.
 
 ### plutoBinder
 
