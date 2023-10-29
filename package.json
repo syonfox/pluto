@@ -23,6 +23,7 @@
     "node": ">=4.0.0"
   },
   "dependencies": {
+    "capnpc-js": "^0.5.1",
     "co": "^4.6.0",
     "lodash.memoize": "^4.1.2"
   },
@@ -36,5 +37,8 @@
     "pub": "bash publish.sh",
     "doc": "npx jsdoc -R README.md -P package.json -d doc -r lib/"
   },
-  "contributors": ["Syonfox", "Evan Cowden"]
+  "contributors": [
+    "Syonfox",
+    "Evan Cowden"
+  ]
 }

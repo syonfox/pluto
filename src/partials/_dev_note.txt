@@ -3,7 +3,7 @@ partials folders are not copied and are just resorces to inclued with ejs
 
 npx ei src . package.json
 
-note ei requires all 3 inputs so we use the pakage.json we could use any json file
+note ei requires all 3 inputs so we use the package.json we could use any json file
 https://stackoverflow.com/questions/10065564/add-custom-metadata-or-config-to-package-json-is-it-valid
 
 
